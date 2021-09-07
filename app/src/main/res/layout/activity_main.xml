@@ -44,17 +44,18 @@
             android:layout_weight="7"
             app:tabTextColor="#000000"
             android:background="#ffffff"
+            app:tabMinWidth="56dp"
             />
         <Button
-            android:id="@+id/btn_setchan"
+            android:id="@+id/btn_setChannel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/setting_icon"/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_news"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

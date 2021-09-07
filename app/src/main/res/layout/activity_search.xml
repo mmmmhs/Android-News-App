@@ -16,17 +16,31 @@
         android:textSize="50sp"
         android:drawableLeft="@drawable/search_activity_icon"/>
 
-
-    <TextView
-        android:id="@+id/text_Keywords"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Key Words :"
-        android:background="#ffffff"
-        android:textColor="@color/black"
-        android:textSize="30sp"
         android:layout_marginTop="20dp"
-        />
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text_Keywords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Key Words :"
+            android:background="#ffffff"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_Keywords"
+            android:layout_marginLeft="20dp"
+            android:text="(Optional)"
+            android:textColor="@color/grey"
+            android:textSize="30sp"/>
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/keyword_input"
         android:layout_width="match_parent"
@@ -38,16 +52,31 @@
         android:textColorHint="#666666"
         />
 
-    <TextView
-        android:id="@+id/text_Time"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Time :"
-        android:background="#ffffff"
-        android:textColor="@color/black"
-        android:textSize="30sp"
         android:layout_marginTop="20dp"
-        />
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text_Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time :"
+            android:background="#ffffff"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_Time"
+            android:layout_marginLeft="20dp"
+            android:text="(Optional)"
+            android:textColor="@color/grey"
+            android:textSize="30sp"/>
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/start_time_input"
         android:layout_width="match_parent"
@@ -65,7 +94,7 @@
         android:background="#ffffff"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:hint="To (eg. 2021-09-10 22:30:00)\n (default : newest)"
+        android:hint="To (eg. 2021-09-10 22:30:00)\n (Default : newest)"
         android:textColorHint="#666666"
         />
 
