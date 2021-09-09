@@ -7,11 +7,14 @@
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/drawable/searchbtn_appearance.xml" value="0.2361111111111111" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/activity_main.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/activity_search.xml" value="0.2604166666666667" />
+        <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/activity_set_time.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/news_fragment.xml" value="0.22418478260869565" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/news_text.xml" value="0.25" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/news_with_image.xml" value="0.25" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/news_with_one_image.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/news_with_three_images.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/news_with_two_images.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/huawei/Desktop/AndroidStudio/app/src/main/res/layout/time_dialog.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/huawei/Desktop/AndroidStudio/drag_library/src/main/res/drawable/subscribe_item_text_color_night.xml" value="0.24814814814814815" />
       </map>
     </option>

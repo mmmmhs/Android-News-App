@@ -28,19 +28,23 @@ public class News {
         int i = 1;
         int len = di.getImage().length();
         String str = new String();
-        try{
-            while (i < len - 1)
+        while (i < len - 1)
+        {
+            while ((di.getImage().charAt(i) != ',') && (i < len - 1) && (di.getImage().charAt(i) != ']'))
             {
-                while ((di.getImage().charAt(i) != ',') && (i < len - 1))
-                {
-                    str += di.getImage().charAt(i);
-                    i++;
-                }
+                str += di.getImage().charAt(i);
+                i++;
+            }
+            if(!((str.equals("")) || (str.equals("] ["))))
+            {
                 image.add(str);
                 str = "";
-                i += 2;
             }
-        }catch (StringIndexOutOfBoundsException e){}
+            if(di.getImage().charAt(i) == ',')
+                i += 2;
+            else
+                i += 3;
+        }
         imageNum = image.size();
         video = di.getVideo();
     }
@@ -53,3 +57,4 @@ public class News {
         return n;
     }
 }
+

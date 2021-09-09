@@ -1,5 +1,7 @@
 package com.news.newsapp;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +34,8 @@ public class NewsViewFragment extends Fragment {
 
     public void setNewsAdapter(ArrayList<News> list)
     {
-        news_adapt = new NewsAdapter(list);
+        news_adapt = new NewsAdapter(getActivity(), list);
+        rv.setAdapter(news_adapt);
     }
 
     @Nullable
@@ -61,7 +64,24 @@ public class NewsViewFragment extends Fragment {
         }
         ln.launch();
         super.onStart();
-        rv.setAdapter(news_adapt);
+    }
+}
+
+class NewsDeco extends RecyclerView.ItemDecoration{
+
+    private Context context;
+
+    public NewsDeco(Context con){
+        context = con;
+    }
+
+    @Override
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                               @NonNull RecyclerView parent, @NonNull RecyclerView.State state)
+    {
+        super.getItemOffsets(outRect, view, parent, state);
+        outRect.set(0, 0, 0,
+                context.getResources().getDimensionPixelOffset(R.dimen.divider_width));
     }
 }
 

@@ -10,20 +10,31 @@
     <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:background="#ff0000"
         android:orientation="horizontal"
         android:padding="20dp">
-        <Button
+        <EditText
             android:id="@+id/search_frame"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:background="@drawable/search_appearance"
-
+            android:hint="输入关键词"
+            android:textColorHint="@color/grey"
+            android:paddingLeft="10dp"
             />
         <Button
-            android:id="@+id/searchbtn"
+            android:id="@+id/timeBtn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/clock_icon"/>
+
+
+        <Button
+            android:id="@+id/searchBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

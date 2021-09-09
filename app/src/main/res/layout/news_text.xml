@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:background="@color/white">
     <TextView
         android:id="@+id/tnews_title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
         android:textColor="@color/black"
-        android:textSize="40dp"
+        android:textSize="20sp"
+        android:maxLines="2"
         android:ellipsize="end"
         />
     <LinearLayout
@@ -24,7 +26,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="@color/grey"
-            android:textSize="30dp"
+            android:textSize="15sp"
+            android:gravity="left|bottom"
             />
         <TextView
             android:id="@+id/tnews_time"
@@ -32,7 +35,8 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:textColor="@color/grey"
-            android:textSize="30dp"
+            android:textSize="15sp"
+            android:gravity="right|bottom"
             />
 
     </LinearLayout>

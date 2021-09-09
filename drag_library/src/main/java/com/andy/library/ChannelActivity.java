@@ -46,8 +46,8 @@ public class ChannelActivity  extends AppCompatActivity implements AdapterView.O
     ArrayList<ChannelItem> userChannelList = new ArrayList<ChannelItem>();
     /** 是否在移动，由于这边是动画结束后才进行的数据更替，设置这个限制为了避免操作太频繁造成的数据错乱。 */
     boolean isMove = false;
-    public static int REQUEST_CODE =100;
-    public static int RESULT_CODE =101;
+    public static int REQUEST_CODE = 100;
+    public static int RESULT_CODE = 101;
     public static String RESULT_JSON_KEY = "json";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

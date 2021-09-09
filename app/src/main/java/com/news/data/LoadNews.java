@@ -2,13 +2,16 @@ package com.news.data;
 
 import android.app.Application;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.news.newsapp.News;
 import com.news.newsapp.NewsViewFragment;
+
 
 import org.w3c.dom.CDATASection;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.*;
 import java.util.*;
 import java.text.*;
@@ -61,6 +64,8 @@ public class LoadNews {
 
         @Override
         public void run() {
+
+            String content = new String();
             try{
                 URL u = new URL(this.url);
                 URLConnection uConnection = u.openConnection();
@@ -71,7 +76,6 @@ public class LoadNews {
                 }
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(connection.getInputStream()));
-                String content = "";
                 String current;
                 while((current = in.readLine()) != null)
                 {

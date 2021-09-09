@@ -17,27 +17,32 @@ import com.google.gson.reflect.*;
 import com.andy.library.*;
 import com.news.data.LoadNews;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<ChannelBean> channelBeanList = new ArrayList<>();
     ArrayList<NewsViewFragment> fraglist = new ArrayList<>();
+    private String startTime, endTime;
 
     private TabAdapter tab_adapt;
     private ViewPager viewPager;
     private TabLayout tab_channel;
     private Button set_channelBtn;
 
-    private Button searchframe;
+    private EditText searchframe;
     private Button searchbtn;
+    private Button settimebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,23 +50,45 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         searchframe = findViewById(R.id.search_frame);
         searchframe.getPaint().setAntiAlias(true);
-        searchbtn = findViewById(R.id.searchbtn);
-        searchframe.setOnClickListener(new View.OnClickListener() {
+        searchbtn = findViewById(R.id.searchBtn);
+        settimebtn = findViewById(R.id.timeBtn);
+        settimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(i);
-            }
-        });
-        searchbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(MainActivity.this, SetTimeActivity.class);
+                if((startTime != null) && (!startTime.equals("")))
+                    intent.putExtra("start", startTime);
+                else
+                    intent.putExtra("start", new GetCurTime().get());
+                if((endTime != null) && (!endTime.equals("")))
+                    intent.putExtra("end", endTime);
+                else
+                    intent.putExtra("end", new GetCurTime().get());
+                startActivityForResult(intent, 0);
             }
         });
         initView();
         initData();
+    }
+
+    private void search(){
+        NewsViewFragment frag = (NewsViewFragment) tab_adapt.getItem(viewPager.getCurrentItem());
+        String cate = frag.getTitle();
+        if(startTime == null)
+            startTime = new String();
+        if(endTime == null)
+            endTime = new GetCurTime().get();
+        String word = searchframe.getText().toString();
+        LoadNews ln;
+        if(!cate.equals("全部"))
+        {
+            ln = new LoadNews(frag, 15, startTime, endTime, word, cate);
+        }
+        else
+        {
+            ln = new LoadNews(frag, 15, startTime, endTime, word, "");
+        }
+        ln.launch();
     }
 
     private void initView() {
@@ -80,6 +107,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ChannelActivity.startChannelForResult(MainActivity.this, channelBeanList);
+            }
+        });
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search();
+            }
+        });
+        searchframe.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if((keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                    && (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                    && (keyEvent != null)
+                    && (!searchframe.getText().toString().isEmpty())) {
+
+                    search();
+                    return true;
+                }
+                return false;
             }
         });
     }
@@ -109,45 +156,39 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //返回来的频道管理 封装在json中
-        String jsonString = data.getStringExtra(ChannelActivity.RESULT_JSON_KEY);
-        //解析
-        Gson gson = new Gson();
-        //把数组转为集合  用TypeToken转换
-        channelBeanList = gson.fromJson(jsonString,
-                                        new TypeToken<ArrayList<ChannelBean>>() {}.getType());
-        //清空tablayout
-        tab_channel.removeAllTabs();
-        //清空fragment
-        fraglist.clear();
-        //重新添加tablayout和fragment
-        for (int i = 0; i < channelBeanList.size(); i++) {
-            if(channelBeanList.get(i).isSelect()){
-                tab_channel.addTab(tab_channel.newTab().setText(channelBeanList.get(i).getName()));
-                fraglist.add(new NewsViewFragment(channelBeanList.get(i).getName()));
+        if(resultCode == 101)
+        {
+            //返回来的频道管理 封装在json中
+            String jsonString = data.getStringExtra(ChannelActivity.RESULT_JSON_KEY);
+            //解析
+            Gson gson = new Gson();
+            //把数组转为集合  用TypeToken转换
+            channelBeanList = gson.fromJson(jsonString,
+                    new TypeToken<ArrayList<ChannelBean>>() {}.getType());
+            //清空tablayout
+            tab_channel.removeAllTabs();
+            //清空fragment
+            fraglist.clear();
+            //重新添加tablayout和fragment
+            for (int i = 0; i < channelBeanList.size(); i++) {
+                if(channelBeanList.get(i).isSelect()){
+                    tab_channel.addTab(tab_channel.newTab().setText(channelBeanList.get(i).getName()));
+                    fraglist.add(new NewsViewFragment(channelBeanList.get(i).getName()));
+                }
             }
+            //刷新适配器
+            tab_adapt.notifyDataSetChanged();
         }
-        //刷新适配器
-        tab_adapt.notifyDataSetChanged();
+        else if(resultCode == 1)
+        {
+            GetCurTime s = new GetCurTime(data.getLongExtra("start", 0));
+            GetCurTime e = new GetCurTime(data.getLongExtra("end", new Date().getTime()));
+            startTime = s.get();
+            endTime = e.get();
+        }
     }
 }
 
-class NewsDeco extends RecyclerView.ItemDecoration{
 
-    private Context context;
-
-    public NewsDeco(Context con){
-        context = con;
-    }
-
-    @Override
-    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                               @NonNull RecyclerView parent, @NonNull RecyclerView.State state)
-    {
-        super.getItemOffsets(outRect, view, parent, state);
-        outRect.set(0, 0, 0,
-                 context.getResources().getDimensionPixelOffset(R.dimen.divider_width));
-    }
-}
 
 
