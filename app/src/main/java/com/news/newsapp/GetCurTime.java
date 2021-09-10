@@ -11,7 +11,7 @@ public class GetCurTime {
     public GetCurTime(){
         def = false;
         dNow = new Date( );
-        ftime = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        ftime = new SimpleDateFormat ("yyyy-MM-dd");
     }
 
     public GetCurTime(Long l){
@@ -20,7 +20,7 @@ public class GetCurTime {
         else
             def = false;
         dNow = new Date();
-        ftime = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        ftime = new SimpleDateFormat ("yyyy-MM-dd");
         dNow.setTime(l);
     }
 

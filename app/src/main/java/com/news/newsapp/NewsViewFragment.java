@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.news.data.LoadNews;
 
@@ -36,6 +37,8 @@ public class NewsViewFragment extends Fragment {
     {
         news_adapt = new NewsAdapter(getActivity(), list);
         rv.setAdapter(news_adapt);
+        if(list.size() == 0)
+            Toast.makeText( getActivity(), "无结果", Toast.LENGTH_SHORT ).show();
     }
 
     @Nullable

@@ -73,11 +73,82 @@
         android:background="@color/white"
         />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_func"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#ff0000"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        app:tabTextColor="#000000"
-        android:background="#ffffff"
-        />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#ffffff">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginRight="20dp">
+            <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/home"
+                android:layout_marginLeft="30dp"/>
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/homeBtn"
+                android:layout_alignLeft="@+id/homeBtn"
+                android:gravity="center"
+                android:text="主页"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/favoriteBtn"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/heart" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/favoriteBtn"
+                android:layout_alignLeft="@+id/favoriteBtn"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp">
+            <Button
+                android:id="@+id/historyBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/book"
+                android:layout_marginLeft="30dp"/>
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/historyBtn"
+                android:layout_alignLeft="@+id/historyBtn"
+                android:gravity="center"
+                android:text="历史"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+    </LinearLayout>
 </LinearLayout>

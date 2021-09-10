@@ -43,7 +43,7 @@ public class SetTimeActivity extends AppCompatActivity {
                     dd = "0" + Integer.toString(d);
                 else
                     dd = Integer.toString(d);
-                start_sel = yy + "-" + mm + "-" + dd + " 00:00:00";
+                start_sel = yy + "-" + mm + "-" + dd;
             }
         });
         end.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -61,7 +61,7 @@ public class SetTimeActivity extends AppCompatActivity {
                     dd = "0" + Integer.toString(d);
                 else
                     dd = Integer.toString(d);
-                end_sel = yy + "-" + mm + "-" + dd + " 00:00:00";
+                end_sel = yy + "-" + mm + "-" + dd;
             }
         });
         confirmBtn.setOnClickListener(new View.OnClickListener() {

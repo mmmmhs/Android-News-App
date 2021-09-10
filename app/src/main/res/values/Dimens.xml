@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="divider_width"> 1dp </dimen>
+    <dimen name="image_width"> 120dp </dimen>
+    <dimen name="image_height"> 100dp </dimen>
+    <dimen name="video_width"> 300dp </dimen>
+    <dimen name="video_height"> 200dp </dimen>
+    <dimen name="margin"> 10dp </dimen>
 </resources>

@@ -17,6 +17,7 @@ import com.google.gson.reflect.*;
 import com.andy.library.*;
 import com.news.data.LoadNews;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<NewsViewFragment> fraglist = new ArrayList<>();
     private String startTime, endTime;
 
+    private Dialog dialog;
     private TabAdapter tab_adapt;
     private ViewPager viewPager;
     private TabLayout tab_channel;
@@ -55,16 +57,36 @@ public class MainActivity extends AppCompatActivity {
         settimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SetTimeActivity.class);
-                if((startTime != null) && (!startTime.equals("")))
-                    intent.putExtra("start", startTime);
-                else
-                    intent.putExtra("start", new GetCurTime().get());
-                if((endTime != null) && (!endTime.equals("")))
-                    intent.putExtra("end", endTime);
-                else
-                    intent.putExtra("end", new GetCurTime().get());
-                startActivityForResult(intent, 0);
+                LayoutInflater inflater=LayoutInflater.from(settimebtn.getContext());
+                View myview = inflater.inflate(R.layout.time_set_dialog,null);//引用自定义布局
+                AlertDialog.Builder builder = new AlertDialog.Builder(settimebtn.getContext());
+                builder.setView(myview);
+                dialog = builder.create();//创建对话框
+                dialog.show();//显示对话框
+                myview.findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener(){//获取布局里面按钮
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();//点击按钮对话框消失
+                        startTime = new String();
+                        endTime = new GetCurTime().get();
+                    }
+                });
+                myview.findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(MainActivity.this, SetTimeActivity.class);
+                        if((startTime != null) && (!startTime.equals("")))
+                            intent.putExtra("start", startTime);
+                        else
+                            intent.putExtra("start", new GetCurTime().get());
+                        if((endTime != null) && (!endTime.equals("")))
+                            intent.putExtra("end", endTime);
+                        else
+                            intent.putExtra("end", new GetCurTime().get());
+                        startActivityForResult(intent, 0);
+                    }
+                });
             }
         });
         initView();

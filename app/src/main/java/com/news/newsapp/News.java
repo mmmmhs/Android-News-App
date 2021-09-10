@@ -2,26 +2,59 @@ package com.news.newsapp;
 
 import com.news.data.*;
 import java.util.*;
+import android.os.*;
 
-public class News {
-    public int imageNum;//0 = text, 1 = image, 2 = video
+public class News implements Parcelable{
+    public int imageNum;
     public String category;
     public String time;
-    public String[] words;
     public String title;
     public String text;
     public ArrayList<String> image;
     public String video;
+    public String source;
+
+    public static final Creator<News> CREATOR = new Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel parcel) {
+            News n = new News();
+            n.imageNum = parcel.readInt();
+            n.category = parcel.readString();
+            n.time = parcel.readString();
+            n.title = parcel.readString();
+            n.text = parcel.readString();
+            n.image = new ArrayList<>();
+            for(int k = 0; k < n.imageNum; k++)
+                n.image.add(parcel.readString());
+            n.video = parcel.readString();
+            n.source = parcel.readString();
+            return n;
+        }
+
+        @Override
+        public News[] newArray(int i) {
+            return new News[i];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(imageNum);
+        parcel.writeString(category);
+        parcel.writeString(time);
+        parcel.writeString(title);
+        parcel.writeString(text);
+        for(int k = 0; k < imageNum; k++)
+            parcel.writeString(image.get(k));
+        parcel.writeString(video);
+        parcel.writeString(source);
+    }
 
     News(){}
     News(DataItem di){
         category = di.getCategory();
         time = di.getPublishTime();
         int kwl = di.getKeywords().size();
-        words = new String[kwl];
-        for(int i = 0; i < kwl; i++){
-            words[i] = di.getKeywords().get(i).getWord();
-        }
         title = di.getTitle();
         text = di.getContent();
         image = new ArrayList<>();
@@ -47,14 +80,20 @@ public class News {
         }
         imageNum = image.size();
         video = di.getVideo();
+        source = di.getPublisher();
     }
 
     public static ArrayList<News> netNewsAL(Response r){
         int len = r.getData().size();
-        ArrayList<News> n = new ArrayList<News>();
+        ArrayList<News> n = new ArrayList<>();
         for(int i = 0; i < len; i++)
             n.add(new News(r.getData().get(i)));
         return n;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }
 

@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -45,18 +47,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         News n = news.get(position);
-        if(holder instanceof TextNewsViewHolder){
-            TextNewsViewHolder hd = (TextNewsViewHolder) holder;
-            hd.setView(n);
-        }
-        if(holder instanceof OneImageNewsViewHolder){
-            OneImageNewsViewHolder hd = (OneImageNewsViewHolder) holder;
-            hd.setView(n);
-        }
-        if(holder instanceof TwoImageNewsViewHolder){
-            TwoImageNewsViewHolder hd = (TwoImageNewsViewHolder) holder;
-            hd.setView(n);
-        }
+        NewsViewHolder hd = (NewsViewHolder) holder;
+        hd.setView(n);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("news", n);
+                ((AppCompatActivity)context).startActivityForResult(intent, 1);
+                hd.setAfterRead();
+            }
+        });
     }
 
     @Override
@@ -72,7 +73,16 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return 2;
     }
 
-    class TextNewsViewHolder extends RecyclerView.ViewHolder{
+    abstract class NewsViewHolder extends RecyclerView.ViewHolder{
+
+        public NewsViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+        public void setView(News n){}
+        public void setAfterRead(){}
+    }
+
+    class TextNewsViewHolder extends NewsViewHolder{
         private TextView title, cate, time;
         public TextNewsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,14 +90,20 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             cate = itemView.findViewById(R.id.tnews_cate);
             time = itemView.findViewById(R.id.tnews_time);
         }
+        @Override
         public void setView(News n){
             title.setText(n.title);
             cate.setText(n.category);
             time.setText(n.time);
         }
+
+        @Override
+        public void setAfterRead() {
+            title.setTextColor(context.getColor(R.color.grey));
+        }
     }
 
-    class OneImageNewsViewHolder extends RecyclerView.ViewHolder{
+    class OneImageNewsViewHolder extends NewsViewHolder{
         private TextView title, cate, time;
         private ImageView image;
         public OneImageNewsViewHolder(@NonNull View itemView) {
@@ -97,15 +113,20 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             time = itemView.findViewById(R.id.inews_time);
             image = itemView.findViewById(R.id.inews_image);
         }
+        @Override
         public void setView(News n){
             title.setText(n.title);
             cate.setText(n.category);
             time.setText(n.time);
             Glide.with(context).load(n.image.get(0)).placeholder(R.drawable.default_pic).into(image);
         }
+        @Override
+        public void setAfterRead() {
+            title.setTextColor(context.getColor(R.color.grey));
+        }
     }
 
-    class TwoImageNewsViewHolder extends RecyclerView.ViewHolder{
+    class TwoImageNewsViewHolder extends NewsViewHolder{
         private TextView title, cate;
         private ImageView image1, image2;
         public TwoImageNewsViewHolder(@NonNull View itemView) {
@@ -115,11 +136,16 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             image1 = itemView.findViewById(R.id.tinews_image1);
             image2 = itemView.findViewById(R.id.tinews_image2);
         }
+        @Override
         public void setView(News n){
             title.setText(n.title);
             cate.setText(n.category);
             Glide.with(context).load(n.image.get(0)).placeholder(R.drawable.default_pic).into(image1);
             Glide.with(context).load(n.image.get(1)).placeholder(R.drawable.default_pic).into(image2);
+        }
+        @Override
+        public void setAfterRead() {
+            title.setTextColor(context.getColor(R.color.grey));
         }
     }
 }
