@@ -1,78 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/search_layout"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:background="#ff0000"
-        android:orientation="horizontal"
-        android:padding="20dp">
-        <EditText
-            android:id="@+id/search_frame"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:background="@drawable/search_appearance"
-            android:hint="输入关键词"
-            android:textColorHint="@color/grey"
-            android:paddingLeft="10dp"
-            />
-        <Button
-            android:id="@+id/timeBtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/clock_icon"/>
-
-
-        <Button
-            android:id="@+id/searchBtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/search_icon"
-            android:layout_marginLeft="10dp"
-
-            />
-    </LinearLayout>
-
-    <LinearLayout
+        android:text="收藏"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:gravity="center_vertical"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_rv"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_cate"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            app:tabTextColor="#000000"
-            android:background="#ffffff"
-            app:tabMinWidth="56dp"
-            />
-        <Button
-            android:id="@+id/btn_setChannel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/setting_icon"/>
-    </LinearLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_news"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white"
-        />
-
+        android:background="@color/grey"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -91,7 +35,7 @@
             android:layout_marginRight="20dp">
 
             <Button
-                android:id="@+id/homeBtn"
+                android:id="@+id/homeBtn_f"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
@@ -100,8 +44,8 @@
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/homeBtn"
-                android:layout_alignLeft="@+id/homeBtn"
+                android:layout_below="@+id/homeBtn_f"
+                android:layout_alignLeft="@+id/homeBtn_f"
                 android:gravity="center"
                 android:text="主页"
                 android:textColor="@color/black" />
@@ -112,7 +56,7 @@
             android:gravity="center_vertical">
 
             <Button
-                android:id="@+id/favoriteBtn"
+                android:id="@+id/favoriteBtn_f"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
@@ -123,8 +67,8 @@
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/favoriteBtn"
-                android:layout_alignLeft="@+id/favoriteBtn"
+                android:layout_below="@+id/favoriteBtn_f"
+                android:layout_alignLeft="@+id/favoriteBtn_f"
                 android:gravity="center"
                 android:text="收藏"
                 android:textColor="@color/black" />
@@ -136,7 +80,7 @@
             android:layout_marginLeft="20dp">
 
             <Button
-                android:id="@+id/historyBtn"
+                android:id="@+id/historyBtn_f"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
@@ -145,12 +89,13 @@
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/historyBtn"
-                android:layout_alignLeft="@+id/historyBtn"
+                android:layout_below="@+id/historyBtn_f"
+                android:layout_alignLeft="@+id/historyBtn_f"
                 android:gravity="center"
                 android:text="历史"
                 android:textColor="@color/black" />
         </RelativeLayout>
-
     </LinearLayout>
+
+
 </LinearLayout>

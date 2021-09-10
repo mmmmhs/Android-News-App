@@ -49,13 +49,20 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         News n = news.get(position);
         NewsViewHolder hd = (NewsViewHolder) holder;
         hd.setView(n);
+        if((context instanceof MainActivity) && (MainActivity.isHistory(n)))
+            hd.setAfterRead();
+        else
+            hd.setBeforeRead();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("news", n);
                 ((AppCompatActivity)context).startActivityForResult(intent, 1);
-                hd.setAfterRead();
+                if(context instanceof MainActivity)
+                {
+                    MainActivity.updateHis(n);
+                }
             }
         });
     }
@@ -80,6 +87,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         public void setView(News n){}
         public void setAfterRead(){}
+        public void setBeforeRead(){};
     }
 
     class TextNewsViewHolder extends NewsViewHolder{
@@ -100,6 +108,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void setAfterRead() {
             title.setTextColor(context.getColor(R.color.grey));
+        }
+
+        @Override
+        public void setBeforeRead() {
+            title.setTextColor(context.getColor(R.color.black));
         }
     }
 
@@ -124,6 +137,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setAfterRead() {
             title.setTextColor(context.getColor(R.color.grey));
         }
+        @Override
+        public void setBeforeRead() {
+            title.setTextColor(context.getColor(R.color.black));
+        }
     }
 
     class TwoImageNewsViewHolder extends NewsViewHolder{
@@ -146,6 +163,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void setAfterRead() {
             title.setTextColor(context.getColor(R.color.grey));
+        }
+        @Override
+        public void setBeforeRead() {
+            title.setTextColor(context.getColor(R.color.black));
         }
     }
 }

@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<NewsViewFragment> fraglist = new ArrayList<>();
     private String startTime, endTime;
 
+    public static ArrayList<News> hisList = new ArrayList<>();
+    public static ArrayList<News> favList = new ArrayList<>();
+
     private Dialog dialog;
     private TabAdapter tab_adapt;
     private ViewPager viewPager;
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private Button searchbtn;
     private Button settimebtn;
 
+    private Button favBtn, hisBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,22 @@ public class MainActivity extends AppCompatActivity {
         searchframe.getPaint().setAntiAlias(true);
         searchbtn = findViewById(R.id.searchBtn);
         settimebtn = findViewById(R.id.timeBtn);
+        favBtn = findViewById(R.id.favoriteBtn);
+        hisBtn = findViewById(R.id.historyBtn);
+        favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
+        hisBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
         settimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,6 +229,50 @@ public class MainActivity extends AppCompatActivity {
             startTime = s.get();
             endTime = e.get();
         }
+    }
+
+    public static void updateHis(News n){
+        int l = hisList.size();
+        for(int i = 0; i < l; i++){
+            if(hisList.get(i).url.equals(n.url))
+            {
+                hisList.remove(i);
+                break;
+            }
+        }
+        hisList.add(n);
+    }
+
+    public static void deleteFav(News n){
+        int l = favList.size();
+        for(int i = 0; i < l; i++){
+            if(favList.get(i).url.equals(n.url))
+            {
+                favList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public static boolean isHistory(News n){
+        int l = hisList.size();
+        for(int i = 0; i < l; i++){
+            if(hisList.get(i).url.equals(n.url))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean isFavorite(News n){
+        int l = favList.size();
+        for(int i = 0; i < l; i++){
+            if(favList.get(i).url.equals(n.url))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

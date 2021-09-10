@@ -13,6 +13,7 @@ public class News implements Parcelable{
     public ArrayList<String> image;
     public String video;
     public String source;
+    public String url;
 
     public static final Creator<News> CREATOR = new Creator<News>() {
         @Override
@@ -28,6 +29,7 @@ public class News implements Parcelable{
                 n.image.add(parcel.readString());
             n.video = parcel.readString();
             n.source = parcel.readString();
+            n.url = parcel.readString();
             return n;
         }
 
@@ -48,6 +50,7 @@ public class News implements Parcelable{
             parcel.writeString(image.get(k));
         parcel.writeString(video);
         parcel.writeString(source);
+        parcel.writeString(url);
     }
 
     News(){}
@@ -81,6 +84,7 @@ public class News implements Parcelable{
         imageNum = image.size();
         video = di.getVideo();
         source = di.getPublisher();
+        url = di.getUrl();
     }
 
     public static ArrayList<News> netNewsAL(Response r){
