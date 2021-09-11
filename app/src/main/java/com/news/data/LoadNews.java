@@ -49,14 +49,22 @@ public class LoadNews {
         GetDataThread th = new GetDataThread(curFrag, url);
         th.start();
     }
+    public void refresh(){
+        RefreshDataThread th = new RefreshDataThread(curFrag, url);
+        th.start();
+    }
+    public void load(){
+        LoadDataThread th = new LoadDataThread(curFrag, url);
+        th.start();
+    }
 
-    class GetDataThread extends Thread{
-        private String url;
-        private Handler mainHandler;
-        private NewsViewFragment frag;
-        private Response json;
+    class DataThread extends Thread{
+        protected String url;
+        protected Handler mainHandler;
+        protected NewsViewFragment frag;
+        protected Response json;
 
-        public GetDataThread(NewsViewFragment f, String s){
+        public DataThread(NewsViewFragment f, String s){
             frag = f;
             url = s;
             mainHandler = new Handler();
@@ -66,33 +74,78 @@ public class LoadNews {
         public void run() {
 
             String content = new String();
-            try{
+            try {
                 URL u = new URL(this.url);
                 URLConnection uConnection = u.openConnection();
                 HttpURLConnection connection = null;
-                if(uConnection instanceof HttpURLConnection)
-                {
+                if (uConnection instanceof HttpURLConnection) {
                     connection = (HttpURLConnection) uConnection;
                 }
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(connection.getInputStream()));
                 String current;
-                while((current = in.readLine()) != null)
-                {
+                while ((current = in.readLine()) != null) {
                     content += current;
                 }
                 Gson gson = new Gson();
                 json = gson.fromJson(content, Response.class);
-            }catch(IOException io)
-            {
+            } catch (IOException io) {
                 io.printStackTrace();
                 json = null;
             }
+        }
+    }
+
+    class GetDataThread extends DataThread{
+        public GetDataThread(NewsViewFragment f, String s){
+            super(f, s);
+        }
+
+        @Override
+        public void run() {
+            super.run();
             mainHandler.post(new Runnable() {
                 //更新fragment中的NewsAdapter
                 @Override
                 public void run() {
                     frag.setNewsAdapter(News.netNewsAL(json));
+                }
+            });
+        }
+    }
+
+    class RefreshDataThread extends DataThread{
+
+        public RefreshDataThread(NewsViewFragment f, String s) {
+            super(f, s);
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    frag.refresh(News.netNewsAL(json));
+                    frag.getRefreshLayout().finishRefresh();
+                }
+            });
+        }
+    }
+    class LoadDataThread extends DataThread{
+
+        public LoadDataThread(NewsViewFragment f, String s) {
+            super(f, s);
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    frag.load(News.netNewsAL(json));
+                    frag.getRefreshLayout().finishLoadMore();
                 }
             });
         }
