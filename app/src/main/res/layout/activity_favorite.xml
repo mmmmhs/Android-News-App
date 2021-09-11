@@ -9,7 +9,8 @@
         android:background="#ff0000"
         android:text="收藏"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="25sp"
+        android:padding="10dp"
         android:gravity="center_vertical"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_rv"
@@ -20,7 +21,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="#ff0000"/>
+        android:background="@color/teal_700"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"

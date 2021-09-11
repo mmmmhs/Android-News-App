@@ -23,6 +23,7 @@
                 android:textSize="15sp"
                 android:maxLines="2"
                 android:ellipsize="end"
+                android:padding="10dp"
                 />
             <TextView
                 android:id="@+id/tinews_cate"
@@ -32,6 +33,7 @@
                 android:textColor="@color/grey"
                 android:textSize="15sp"
                 android:gravity="bottom"
+                android:padding="10dp"
                 />
         </LinearLayout>
         

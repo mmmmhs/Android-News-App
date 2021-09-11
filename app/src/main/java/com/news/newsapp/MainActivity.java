@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<ChannelBean> channelBeanList = new ArrayList<>();
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             ln = new LoadNews(frag, 15, startTime, endTime, word, "");
         }
         ln.launch();
+        Toast.makeText(this, "搜索中", Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {
