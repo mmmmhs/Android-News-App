@@ -121,6 +121,11 @@ public class NewsViewFragment extends Fragment {
     public void refresh(ArrayList<News> al){
         ArrayList<News> origin = news_adapt.getNews();
         ArrayList<News> list = new ArrayList<>();
+        if(al.size() < 15)
+        {
+            Toast.makeText(getActivity(), "无结果", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int l = al.size() - 15;
         for(int i = 0; i < 15; i++)
             list.add(al.get(l + i));
@@ -134,6 +139,11 @@ public class NewsViewFragment extends Fragment {
 
     public void load(ArrayList<News> al){
         ArrayList<News> origin = news_adapt.getNews();
+        if(al.size() < 15)
+        {
+            Toast.makeText(getActivity(), "无结果", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int l = al.size() - 15;
         for(int i = 0; i < 15; i++)
             origin.add(al.get(l + i));
