@@ -68,16 +68,20 @@ public class DetailActivity extends AppCompatActivity {
             Glide.with(this).load(n.image.get(i)).placeholder(R.drawable.default_pic).into(iv);
             layoutImage.addView(iv);
         }
-        ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if((!n.video.isEmpty()) && (info != null) && (info.isConnected())){
-            VideoView vv = new VideoView(this);
-            LinearLayout.LayoutParams par = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.video_width),
-                    getResources().getDimensionPixelSize(R.dimen.video_height));
-            vv.setLayoutParams(par);
-            vv.setVideoURI(Uri.parse(n.video));
-            vv.setMediaController(new MediaController(this));
-            layoutVideo.addView(vv);
+        try{
+            ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+            if((!n.video.isEmpty()) && (info != null) && (info.isConnected())){
+                VideoView vv = new VideoView(this);
+                LinearLayout.LayoutParams par = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.video_width),
+                        getResources().getDimensionPixelSize(R.dimen.video_height));
+                vv.setLayoutParams(par);
+                vv.setVideoURI(Uri.parse(n.video));
+                vv.setMediaController(new MediaController(this));
+                layoutVideo.addView(vv);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }

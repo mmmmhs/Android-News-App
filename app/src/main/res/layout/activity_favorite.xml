@@ -9,7 +9,7 @@
         android:background="#ff0000"
         android:text="收藏"
         android:textColor="@color/white"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:gravity="center_vertical"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_rv"
