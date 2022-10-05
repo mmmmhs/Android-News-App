@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
         initView();
         initData();
+        Toast.makeText(this, "加载中", Toast.LENGTH_SHORT).show();
     }
 
     private void search(){
